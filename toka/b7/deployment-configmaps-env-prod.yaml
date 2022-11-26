@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-configmaps-eng-prod
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: hello-world-configmaps-env-prod
+  template:
+    metadata:
+      labels:
+        app: hello-world-configmaps-env-prod
+    spec:
+      containers:
+      - name: hello-world
+        image: nginx
+        envFrom:
+        - configMapRef:
+              name: appconfigprod
+        ports:
+        - containerPort: 80
