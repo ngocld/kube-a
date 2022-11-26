@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: volumeclaim01
+  labels:
+    name: volumeclaim01
+spec:
+  storageClassName: my-localstorageclass
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3000Mi
