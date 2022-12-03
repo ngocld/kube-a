@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: cau3
+  labels:
+    application: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      serviceAccountName: webapp-sa
+      containers:
+      - name: nginx-latest
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    application: webapp
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
